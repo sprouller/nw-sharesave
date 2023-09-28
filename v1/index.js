@@ -111,12 +111,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const updateInitial = savingsVal * 12 * savingPeriod;
-      const updateNumber = Math.floor(updateInitial / nwOptionPrice);
+      let bonus = 0; // Initialize the bonus variable
+      
+      if (savingPeriod === 3) {
+          bonus = 1.1 * savingsVal;
+      } else if (savingPeriod === 5) {
+          bonus = 3.2 * savingsVal;
+      }
+
+      const adjustedInitial = updateInitial + bonus; // Add the bonus to the initial value
+      const updateNumber = Math.floor(adjustedInitial / nwOptionPrice);
       const updateValue = Math.round(updateNumber * liveSharePrice);
       const updateChange = updateValue * (1 + (increaseVal / 100));
       const updateProfit = updateChange - updateInitial;
 
-      initial.textContent = roundMeCurrency(updateInitial);
+      initial.textContent = roundMeCurrency(adjustedInitial);
       numberOfShares.textContent = roundMe(updateNumber);
       value.textContent = roundMeCurrency(updateValue);
       change.textContent = roundMeCurrency(updateChange);
