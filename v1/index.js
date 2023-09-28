@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const PROFIT_TEXT = 'profit';
   const SLIDER_VAL = 'sliderVal';
   const OPTION_PRICE = 'optionPrice';
+  const BONUS_MULTIPLE = "bonusMultiple"
 
   // Get elements based on IDs
   const savings = document.getElementById(SAVINGS_INPUT);
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const profit = document.getElementById(PROFIT_TEXT);
   const sliderVal = document.getElementById(SLIDER_VAL);
   const optionPrice = document.getElementById(OPTION_PRICE);
+  const bonusMultiple = document.getElementById(BONUS_MULTIPLE);
   const periodButtons = document.querySelectorAll('input[name="period"]');
 
   // API URL
@@ -112,19 +114,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const updateInitial = savingsVal * 12 * savingPeriod;
       let bonus = 0; // Initialize the bonus variable
+      let bonusMultiplier = 0; // Initialize the bonus multiplier variable
       
       if (savingPeriod === 3) {
-          bonus = 1.1 * savingsVal;
+        bonus = 1.1;
+        bonusMultiplier = bonus * savingsVal;
       } else if (savingPeriod === 5) {
-          bonus = 3.2 * savingsVal;
+        bonus = 3.2;
+        bonusMultiplier = bonus * savingsVal;
       }
 
-      const adjustedInitial = updateInitial + bonus; // Add the bonus to the initial value
+      const adjustedInitial = updateInitial + bonusMultiplier; // Add the bonus to the initial value
       const updateNumber = Math.floor(adjustedInitial / nwOptionPrice);
       const updateValue = Math.round(updateNumber * liveSharePrice);
       const updateChange = updateValue * (1 + (increaseVal / 100));
       const updateProfit = updateChange - updateInitial;
 
+      bonusMultiple.textContent = bonus;
       initial.textContent = roundMeCurrency(adjustedInitial);
       numberOfShares.textContent = roundMe(updateNumber);
       value.textContent = roundMeCurrency(updateValue);
