@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const SLIDER_VAL = 'sliderVal';
   const OPTION_PRICE = 'optionPrice';
   const BONUS_MULTIPLE = "bonusMultiple"
+  const PROFIT_OVER_3K = "profitOver3k";
 
   // Get elements based on IDs
   const savings = document.getElementById(SAVINGS_INPUT);
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const optionPrice = document.getElementById(OPTION_PRICE);
   const bonusMultiple = document.getElementById(BONUS_MULTIPLE);
   const periodButtons = document.querySelectorAll('input[name="period"]');
+  const profitOver3k = document.getElementById(PROFIT_OVER_3K);
 
   // API URL
   const apiUrl = 'https://alpha-pulse.vercel.app/api/eod?id=nwg';
@@ -129,6 +131,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const updateValue = Math.round(updateNumber * liveSharePrice);
       const updateChange = updateValue * (1 + (increaseVal / 100));
       const updateProfit = updateChange - updateInitial;
+
+      if (updateProfit < 3000) {
+        profitOver3k.style.display = "none";
+      } else {
+        profitOver3k.style.display = "block";
+      }
 
       bonusMultiple.textContent = bonus;
       initial.textContent = roundMeCurrency(adjustedInitial);
