@@ -4,18 +4,19 @@
     "serve": "^14.2.0"
   },
   "name": "nw-calc",
-  "version": "1.0.0",
-  "main": "index.ts",
+  "version": "1.0.5",
+  "main": "sharesave/uk/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "serve",
-    "build-uk": "esbuild v1/uk/index.js --bundle --minify --outfile=dist/uk/index.js",
-    "build-india": "esbuild v1/india/index.js --bundle --minify --outfile=dist/india/index.js",
-    "build-poland": "esbuild v1/poland/index.js --bundle --minify --outfile=dist/poland/index.js",
-    "build-all": "npm run build-uk && npm run build-india && npm run build-poland"
+    "build-uk": "esbuild sharesave/uk/index.js --bundle --minify --outfile=dist/sharesave/uk/index.js",
+    "build-india": "esbuild sharesave/india/index.js --bundle --minify --outfile=dist/sharesave/india/index.js",
+    "build-poland": "esbuild sharesave/poland/index.js --bundle --minify --outfile=dist/sharesave/poland/index.js",
+    "build-offshore": "esbuild sharesave/offshore/index.js --bundle --minify --outfile=dist/sharesave/offshore/index.js",
+    "build-sharesave": "npm run build-uk && npm run build-india && npm run build-poland && npm run build-offshore"
 
   },
-  "author": "",
+  "author": "SpydrDigital",
   "license": "ISC",
   "description": "",
   "devDependencies": {
