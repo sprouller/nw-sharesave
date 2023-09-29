@@ -9,7 +9,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "serve",
-    "build": "esbuild v1/index.js --bundle --minify --outfile=dist/index.js"
+    "build-uk": "esbuild v1/uk/index.js --bundle --minify --outfile=dist/uk/index.js",
+    "build-india": "esbuild v1/india/index.js --bundle --minify --outfile=dist/india/index.js",
+    "build-poland": "esbuild v1/poland/index.js --bundle --minify --outfile=dist/poland/index.js",
+    "build-all": "npm run build-uk && npm run build-india && npm run build-poland"
+
   },
   "author": "",
   "license": "ISC",
