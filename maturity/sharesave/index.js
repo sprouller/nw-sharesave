@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Update the live share price on the page
   sharePrice.textContent = roundSharePrice(liveSharePrice);
+  nwOptionPriceDisplay.textContent = roundOptionPrice(nwOptionPrice);
       
       // Add event listeners here if they depend on the fetched share price
       savings.addEventListener('input', () => {
@@ -141,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
       numberOfShares.textContent = roundMe(updatedNumberOfShares);
 
       let updatedInitialValue = updatedNumberOfShares * liveSharePrice;
-      initialValue.textContent = roundMeCurrency(updatedNumberOfShares);
+      initialValue.textContent = roundMeCurrency(updatedInitialValue);
 
       let updatedInitialProfit = updatedInitialValue - updatedTotalSaved;
       initialProfit.textContent = roundMeCurrency(updatedInitialProfit);
