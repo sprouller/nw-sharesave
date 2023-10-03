@@ -62,6 +62,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   };
 
+    // Remove comma and pound sign from input
+    const stripNumber = (textNumber) => {
+      return textNumber.replace(/[£,]/g, "");
+    }
+    
+    // Add commas and pound sign to input
+    const addSymbolsToInput = (numberInput) => {
+      return numberInput.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
   // Initialize the page once the share price is fetched
   const initPage = async () => {
       liveSharePrice = await getSharePrice();
@@ -80,13 +90,17 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Add event listeners here if they depend on the fetched share price
       savings.addEventListener('input', () => {
-          const savingsVal = savings.value;
-          const increaseVal = increase.value;
-          updateTotals(savingsVal, increaseVal);
+        savings.value = addSymbolsToInput(savings.value);
+        savings.value = "£" + savings.value;
+
+        // Set new constant to value of unformmated input
+        let formattedSavingsValue = stripNumber(savings.value);
+        let increaseVal = increase.value;
+        updateTotals(formattedSavingsValue, increaseVal);
       });
 
       increase.addEventListener('input', () => {
-          const savingsVal = savings.value;
+          const savingsVal = stripNumber(savings.value);
           const increaseVal = increase.value;
           updateTotals(savingsVal, increaseVal);
       });

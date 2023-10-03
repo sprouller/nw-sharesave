@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
   // Add event listeners here if they depend on the fetched share price
   calculateButton.addEventListener('click', () => {
-    annualIncome = parseFloat(annualIncomeInput.value);
-    monthlyInvestment = parseFloat(monthlyInvestmentInput.value);
+    annualIncome = parseFloat(stripNumber(annualIncomeInput.value));
+    monthlyInvestment = parseFloat(stripNumber(monthlyInvestmentInput.value));
 
 if (country === "england") {
   if (annualIncome > 150000) {
@@ -89,6 +89,17 @@ updateTotals(taxCalcRnd, monthlyInvestment);
 });
 
 
+  // Remove comma and pound sign from input
+  const stripNumber = (textNumber) => {
+    return textNumber.replace(/[£,]/g, "");
+  }
+  
+  // Add commas and pound sign to input
+  const addSymbolsToInput = (numberInput) => {
+    return numberInput.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  
   // Update the totals
   const updateTotals = (taxCalcRnd, monthlyInvestment) => {
       const roundMeCurrency = (x) => {
@@ -106,10 +117,43 @@ updateTotals(taxCalcRnd, monthlyInvestment);
 
   // Add event listener to validate annual income input
   annualIncomeInput.addEventListener('input', (e) => {
+    annualIncomeInput.value = addSymbolsToInput(annualIncomeInput.value);
+    annualIncomeInput.value = "£" + annualIncomeInput.value;
+
+    let numericValue = stripNumber(annualIncomeInput.value);
+
+    // Validation code
+    const minVal = 20000; // example minimum valid annual income
+    const maxVal = 500000; // example maximum valid annual income
+    
+    if (numericValue < minVal || numericValue > maxVal) {
+        annualIncomeInput.setCustomValidity(`Income must be between £${minVal.toLocaleString()} and £${maxVal.toLocaleString()}.`);
+    } else {
+        annualIncomeInput.setCustomValidity(''); // reset message when valid
+    }
+
     const isValid = e.target.reportValidity();
-    // other code from before
     e.target.setAttribute('aria-invalid', !isValid);
   });
 
-  console.log('live');
+  // Add event listener to validate annual income input
+  monthlyInvestmentInput.addEventListener('input', (e) => {
+    monthlyInvestmentInput.value = addSymbolsToInput(monthlyInvestmentInput.value);
+    monthlyInvestmentInput.value = "£" + monthlyInvestmentInput.value;
+
+    let numericValue = stripNumber(monthlyInvestmentInput.value);
+
+    // Validation code
+    const minVal = 5; // example minimum valid annual income
+    const maxVal = 150; // example maximum valid annual income
+    
+    if (numericValue < minVal || numericValue > maxVal) {
+      monthlyInvestmentInput.setCustomValidity(`Income must be between £${minVal.toLocaleString()} and £${maxVal.toLocaleString()}.`);
+    } else {
+      monthlyInvestmentInput.setCustomValidity(''); // reset message when valid
+    }
+
+    const isValid = e.target.reportValidity();
+    e.target.setAttribute('aria-invalid', !isValid);
+  });
 });
