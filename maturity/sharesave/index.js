@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize the live share price as null
   let liveSharePrice = null;
-  let nwOptionPrice = 1.7829;  // default value
   let savingPeriod = 3;
 
   // Fetch the share price from the API
@@ -88,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Update the live share price on the page
   sharePrice.textContent = roundSharePrice(liveSharePrice);
+  let nwOptionPrice = 1.7829;  // default value
   nwOptionPriceDisplay.textContent = roundOptionPrice(nwOptionPrice);
       
       // Add event listeners here if they depend on the fetched share price
