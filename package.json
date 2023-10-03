@@ -13,8 +13,12 @@
     "build-india": "esbuild sharesave/india/index.js --bundle --minify --outfile=dist/sharesave/india/index.js",
     "build-poland": "esbuild sharesave/poland/index.js --bundle --minify --outfile=dist/sharesave/poland/index.js",
     "build-offshore": "esbuild sharesave/offshore/index.js --bundle --minify --outfile=dist/sharesave/offshore/index.js",
+    "build-baye-uk": "esbuild baye/uk/index.js --bundle --minify --outfile=dist/baye/uk/index.js",
+    "build-baye-iom": "esbuild baye/iom/index.js --bundle --minify --outfile=dist/baye/iom/index.js",
     "build-sharesave": "npm run build-uk && npm run build-india && npm run build-poland && npm run build-offshore",
-    "build-baye-uk": "esbuild baye/uk/index.js --bundle --minify --outfile=dist/baye/uk/index.js"
+    "build-baye": "npm run build-baye-uk && npm run build-baye-iom",
+    "build-all" : "npm run build-sharesave && npm run build-baye"
+
   },
   "author": "SpydrDigital",
   "license": "ISC",

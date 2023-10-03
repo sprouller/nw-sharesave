@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Add event listeners here if they depend on the fetched share price
       savings.addEventListener('input', () => {
         savings.value = addSymbolsToInput(savings.value);
-        savings.value = "£" + savings.value;
+        savings.value = "₹" + savings.value;
 
         // Set new constant to value of unformmated input
         let formattedSavingsValue = stripNumber(savings.value);
