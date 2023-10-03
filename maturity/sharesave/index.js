@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
           let savingsVal = stripNumber(savings.value);
           let increaseVal = increase.value;
           updateTotals(savingsVal, increaseVal);
-          nwOptionPriceDisplay.textContent = roundSharePrice(nwOptionPrice);
+          nwOptionPriceDisplay.textContent = roundOptionPrice(nwOptionPrice);
         });
     });
   };  
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (savingPeriod === 3) {
         nwOptionPrice = 1.7829;
       } else if (savingPeriod === 5) {
-        bonus = 2.2699;
+        nwOptionPrice = 2.2699;
       }
 
       let updatedTotalSaved = savingsVal * 12 * savingPeriod;
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
       numberOfShares.textContent = roundMe(updatedNumberOfShares);
 
       let updatedInitialValue = updatedNumberOfShares * liveSharePrice;
-      initialValue.textContent = roundMe(updatedNumberOfShares);
+      initialValue.textContent = roundMeCurrency(updatedNumberOfShares);
 
       let updatedInitialProfit = updatedInitialValue - updatedTotalSaved;
       initialProfit.textContent = roundMeCurrency(updatedInitialProfit);
