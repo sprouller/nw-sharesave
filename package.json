@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@supabase/supabase-js": "^2.12.1",
-    "serve": "^14.2.0"
+    "serve": "^14.2.1"
   },
   "name": "nw-calc",
   "version": "1.0.5",
@@ -17,8 +17,8 @@
     "build-baye-iom": "esbuild baye/iom/index.js --bundle --minify --outfile=dist/baye/iom/index.js",
     "build-sharesave": "npm run build-uk && npm run build-india && npm run build-poland && npm run build-offshore",
     "build-baye": "npm run build-baye-uk && npm run build-baye-iom",
-    "build-all" : "npm run build-sharesave && npm run build-baye"
-
+    "build-maturity": "esbuild maturity/sharesave/index.js --bundle --minify --outfile=dist/maturity/sharesave/index.js",
+    "build-all": "npm run build-sharesave && npm run build-baye && npm run build-maturity"
   },
   "author": "SpydrDigital",
   "license": "ISC",
