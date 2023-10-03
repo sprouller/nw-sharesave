@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Remove comma and pound sign from input
     const stripNumber = (textNumber) => {
-      return textNumber.replace(/[£,]/g, "");
+      return textNumber.replace(/[₹,]/g, "");
     }
     
     // Add commas and pound sign to input

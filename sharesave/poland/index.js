@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Remove comma and pound sign from input
   const stripNumber = (textNumber) => {
-    return textNumber.replace(/[£,]/g, "");
+    return textNumber.replace(/[zł,]/g, "");
   }
   
   // Add commas and pound sign to input
@@ -135,13 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const updateValue = Math.round(updateNumber * convertedSharePrice);
       const updateChange = updateValue * (1 + (increaseVal / 100));
       const updateProfit = updateChange - updateInitial;
-
-/*      if (updateProfit < 3000) {
-        profitOver3k.style.display = "none";
-      } else {
-        profitOver3k.style.display = "block";
-      }
-*/
 
       initial.textContent = roundMeCurrency(updateInitial);
       numberOfShares.textContent = roundMe(updateNumber);
