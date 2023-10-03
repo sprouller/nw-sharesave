@@ -38,6 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }).format(x);
   }
 
+    // Function to round option price
+    const roundOptionPrice = (x) => {
+      return new Intl.NumberFormat('en-GB', {
+          style: 'currency',
+          currency: 'GBP',
+          minimumFractionDigits: 4,
+          maximumFractionDigits: 4,
+      }).format(x);
+  }
+
   // Function to round numbers
   const roundMe = (x) => {
     return new Intl.NumberFormat().format(x);
@@ -103,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
           let savingsVal = stripNumber(savings.value);
           let increaseVal = increase.value;
           updateTotals(savingsVal, increaseVal);
+          nwOptionPriceDisplay.textContent = roundSharePrice(nwOptionPrice);
         });
     });
   };  
@@ -122,8 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (savingPeriod === 5) {
         bonus = 2.2699;
       }
-
-      nwOptionPriceDisplay.textContent = roundSharePrice(nwOptionPrice);
 
       let updatedTotalSaved = savingsVal * 12 * savingPeriod;
       totalSaved.textContent = roundMeCurrency(updatedTotalSaved);
