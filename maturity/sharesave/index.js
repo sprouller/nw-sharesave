@@ -119,11 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (savingPeriod === 3) {
         nwOptionPrice = 1.7829;
-        bonusMultiplier = bonus * savingsVal;
       } else if (savingPeriod === 5) {
         bonus = 2.2699;
-        bonusMultiplier = bonus * savingsVal;
       }
+
+      nwOptionPriceDisplay.textContent = roundSharePrice(nwOptionPrice);
 
       let updatedTotalSaved = savingsVal * 12 * savingPeriod;
       totalSaved.textContent = roundMeCurrency(updatedTotalSaved);
