@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       periodButtons.forEach(radio => {
         radio.addEventListener('change', function() {
           savingPeriod = parseInt(this.value, 10);
-          const savingsVal = savings.value;
+          const savingsVal = stripNumber(savings.value);
           const increaseVal = increase.value;
           updateTotals(savingsVal, increaseVal);
         });

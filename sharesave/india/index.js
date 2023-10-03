@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
       periodButtons.forEach(radio => {
         radio.addEventListener('change', function() {
           savingPeriod = parseInt(this.value, 10);
-          const savingsVal = savings.value;
+          const savingsVal = stripNumber(savings.value);
           const increaseVal = increase.value;
           updateTotals(savingsVal, increaseVal);
         });
@@ -135,13 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const updateValue = Math.round(updateNumber * convertedSharePrice);
       const updateChange = updateValue * (1 + (increaseVal / 100));
       const updateProfit = updateChange - updateInitial;
-
-/*      if (updateProfit < 3000) {
-        profitOver3k.style.display = "none";
-      } else {
-        profitOver3k.style.display = "block";
-      }
-*/
 
       initial.textContent = roundMeCurrency(updateInitial);
       numberOfShares.textContent = roundMe(updateNumber);
