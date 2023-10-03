@@ -76,12 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const initPage = async () => {
       liveSharePrice = await getSharePrice();
 
-    // Determine the value of nwOptionPrice here after liveSharePrice is set
-    if (liveSharePrice !== null) {
-      nwOptionPrice = liveSharePrice * 0.8;
-      nwOptionPriceDisplay.textContent = roundMe(nwOptionPrice);
-    }
-
   // Update the live share price on the page
   sharePrice.textContent = roundSharePrice(liveSharePrice);
       
@@ -121,6 +115,14 @@ document.addEventListener('DOMContentLoaded', () => {
               minimumFractionDigits: 0,
               maximumFractionDigits: 0,
           }).format(x);
+      }
+
+      if (savingPeriod === 3) {
+        nwOptionPrice = 1.7829;
+        bonusMultiplier = bonus * savingsVal;
+      } else if (savingPeriod === 5) {
+        bonus = 2.2699;
+        bonusMultiplier = bonus * savingsVal;
       }
 
       let updatedTotalSaved = savingsVal * 12 * savingPeriod;
