@@ -94,6 +94,19 @@ document.addEventListener('DOMContentLoaded', () => {
         let formattedSavingsValue = stripNumber(savings.value);
         let increaseVal = increase.value;
         updateTotals(formattedSavingsValue, increaseVal);
+
+        // Validation code
+        const minVal = 500; // example minimum valid annual income
+        const maxVal = 6000; // example maximum valid annual income
+        
+        if (formattedSavingsValue < minVal || formattedSavingsValue > maxVal) {
+          savings.setCustomValidity(`Income must be between ₹${minVal.toLocaleString()} and ₹${maxVal.toLocaleString()}.`);
+        } else {
+          savings.setCustomValidity(''); // reset message when valid
+        }
+    
+        const isValid = savings.reportValidity();
+        savings.setAttribute('aria-invalid', !isValid);
       });
 
       increase.addEventListener('input', () => {
