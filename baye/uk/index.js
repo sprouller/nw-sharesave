@@ -5,19 +5,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const INCOME_INPUT = 'annualIncome';
   const MONTHLY_INVESTMENT_INPUT = 'monthlyInvestment';
   const CALCULATE_BUTTON = 'calculate';
+  const EXTRA_SAVINGS_DIV = 'extraSavingsDiv';
+  const EXTRA_SAVINGS_TEXT = 'extraSavings';
 
   // Get elements based on IDs of inputs
   const selectedCountryInput = document.querySelectorAll(COUNTRY_SELECT);
   const annualIncomeInput = document.getElementById(INCOME_INPUT);
   const monthlyInvestmentInput = document.getElementById(MONTHLY_INVESTMENT_INPUT);
   const calculateButton = document.getElementById(CALCULATE_BUTTON);
+  const extraSavingsDiv = document.getElementById(EXTRA_SAVINGS_DIV);
+  const extraSavingsText = document.getElementById(EXTRA_SAVINGS_TEXT);
 
   // IDs of Results
   const MONTHLY_SAVINGS_RESULT = 'monthlySavings';
   const TRUE_COST_OF_SHARES = 'trueSharesCost';
 
   // Get elements based on IDs of results
-  const monthlyInvestmentResult = document.getElementById(MONTHLY_SAVINGS_RESULT);
+  const monthlySavingsResult = document.getElementById(MONTHLY_SAVINGS_RESULT);
   const trueCostOfSharesResult = document.getElementById(TRUE_COST_OF_SHARES);
 
   //Tax Bands
@@ -85,7 +89,22 @@ if (country === "england") {
 
 let taxCalcRnd = Math.round(taxCalc * 100) / 100;
 
-updateTotals(taxCalcRnd, monthlyInvestment);
+    // Calculate extra savings
+    let extraSavings = 0;
+
+    if (annualIncome > 100000 && annualIncome < 125140) {
+      let overIncome = annualIncome - 100000;
+      let reducedAllowance = overIncome / 2;
+      
+      if (monthlyInvestment > 0) {
+        let effectiveIncome = annualIncome - monthlyInvestment;
+        let newReducedAllowance = effectiveIncome > 100000 ? (effectiveIncome - 100000) / 2 : 0;
+        extraSavings = (reducedAllowance - newReducedAllowance) * 0.4; // 40% tax rate
+      }
+    }
+
+updateExtraSavings(extraSavings);
+updateTotals(taxCalcRnd, monthlyInvestment, extraSavings);
 });
 
 
@@ -101,7 +120,7 @@ updateTotals(taxCalcRnd, monthlyInvestment);
 
   
   // Update the totals
-  const updateTotals = (taxCalcRnd, monthlyInvestment) => {
+  const updateTotals = (taxCalcRnd, monthlyInvestment, extraSavings) => {
       const roundMeCurrency = (x) => {
           return new Intl.NumberFormat('en-GB', {
               style: 'currency',
@@ -111,8 +130,26 @@ updateTotals(taxCalcRnd, monthlyInvestment);
           }).format(x);
       }
 
-      trueCostOfSharesResult.textContent = roundMeCurrency(taxCalcRnd);
-      monthlyInvestmentResult.textContent = roundMeCurrency(monthlyInvestment - taxCalcRnd);
+      trueCostOfSharesResult.textContent = roundMeCurrency(taxCalcRnd - extraSavings);
+      monthlySavingsResult.textContent = roundMeCurrency(monthlyInvestment - taxCalcRnd);
+  }
+
+  const updateExtraSavings = (extraSavings) => {
+    const roundMeCurrency = (x) => {
+      return new Intl.NumberFormat('en-GB', {
+        style: 'currency',
+        currency: 'GBP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(x);
+    }
+    
+    if(extraSavings > 0) {
+      extraSavingsDiv.style.display = "block"; // Show the div
+      extraSavingsText.textContent = roundMeCurrency(extraSavings); // Update the text
+    } else {
+      extraSavingsDiv.style.display = "none"; // Hide the div
+    }
   }
 
   // Add event listener to validate annual income input
